@@ -158,6 +158,7 @@ int grades[MAX_STUDENTS][MAX_COURSES];
 int main() {
     ResetEverything();
     PrintMenu();
+    boolean PrintedMenu = false;
     while (1) {
         char inputNumber[1] = {'\0'};
         gets(inputNumber);
@@ -173,17 +174,22 @@ int main() {
                 DeleteStudent();
                 break;
             case '3':
-                ProcessAggregation();
+                ProcessAggregation(MAXIMAL_STUDENT);
                 break;
             case '4':
-                ProcessAggregation();
+                ProcessAggregation(ALL_STUDENTS);
                 break;
             case '5':
+                PrintedMenu = true;
+                PrintMenu();
                 break;
             default:
                 break;
         }
-        PrintNextOperationMessage();
+        if (!PrintedMenu) {
+            PrintNextOperationMessage();
+            PrintedMenu = false;
+        }
     }
 }
 

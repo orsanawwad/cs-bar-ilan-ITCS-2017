@@ -7,11 +7,15 @@ typedef enum {
     UPDATED_STUDENT,ADDED_STUDENT,INVALID_STUDENT_INPUT,INSUFFICIENT_SPACE,UNKNOWN_PARSE_ERROR
 } StatusParseStatus;
 
+typedef enum {
+    MAXIMAL_STUDENT, ALL_STUDENTS
+} AggregationType;
+
 void ResetEverything();
 
 void PrintMenu();
 
-void ProcessAggregation();
+void ProcessAggregation(AggregationType type);
 
 void ArrayCopy(char source[], int sourceBegin, char target[], int targetBegin, int length);
 

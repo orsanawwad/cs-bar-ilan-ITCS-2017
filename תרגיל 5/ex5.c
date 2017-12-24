@@ -499,25 +499,30 @@ StatusParseStatus ValidateLineInput(char inputLine[]) {
         int lastNameIndex = GetLastNameIndexFromDB(tempLastName);
         if ((firstNameIndex == lastNameIndex) && (firstNameIndex != -1 && lastNameIndex != -1)) {
             int studentIndex = firstNameIndex;
+            boolean UpdatedAnyCourse = false;
 
             for (int i = 0; i < courseNameIndex; ++i) {
                 int dbCourseIndex = GetCourseIndexFromStudentDB(studentIndex,tempCourses[i]);
                 if (dbCourseIndex != -1) {
                     SetGradeIntoIndex(firstNameIndex,dbCourseIndex,tempGradesInt[i]);
+                    UpdatedAnyCourse = true;
                 } else {
                     int indexToInsertCourse = FetchEmptyCourseIndexForStudent(studentIndex);
                     if (indexToInsertCourse != -1) {
                         SetCourseIntoIndex(studentIndex,indexToInsertCourse,tempCourses[i]);
                         SetGradeIntoIndex(studentIndex,indexToInsertCourse,tempGradesInt[i]);
+                        UpdatedAnyCourse = true;
                     } else {
                         ////TODO: PRINT NO SPACE ERROR ERROR
                         ////ACTUALLY YOU MIGHT JUST NEED TO PASS, NO ERRORS NEED TO BE THROWN
+                        if (!UpdatedAnyCourse) {
+                            return INVALID_STUDENT_INPUT;
+                        }
                     }
                 }
-                lastUpdated = firstNameIndex;
-                return UPDATED_STUDENT;
             }
-
+            lastUpdated = firstNameIndex;
+            return UPDATED_STUDENT;
         } else {
             int insertQueueIndex = FetchEmptyStudentIndex();
             if (insertQueueIndex != -1) {
@@ -593,23 +598,6 @@ void UpdateSortCache() {
             continue;
         } else {
             for (int j = 0; j < MAX_STUDENTS - 1 - i; ++j) {
-//                int firstCompareLength = (int)strlen(firstNames[sortCache[j]]);
-//                int secondCompareLength = (int)strlen(firstNames[sortCache[j + 1]]);
-//                int minCount = 0;
-//                if (firstCompareLength > secondCompareLength) {
-//                    minCount = secondCompareLength;
-//                } else {
-//                    minCount = firstCompareLength;
-//                }
-//                for (int k = 0; k < minCount; ++k) {
-//                    int charCompare = strcmp(firstNames[sortCache[j]], firstNames[sortCache[j + 1]]);
-                boolean IsFirstNameEquals = true;
-//                if (firstNames[sortCache[j + 1]][0] == '\0') {
-//                    IsFirstNameEquals = false;
-//                }
-//                for (int k = 0; k < MAX_NAME - 1; ++k) {
-//
-//                }
                 if (firstNames[sortCache[j + 1]][0] != '\0') {
                     int wordCompare = strcmp(firstNames[sortCache[j]], firstNames[sortCache[j + 1]]);
                     if(wordCompare < 0) {
@@ -633,26 +621,12 @@ void UpdateSortCache() {
                         }
                     }
                 }
-//                if (IsFirstNameEquals) {
-//                    for (int k = 0; k < MAX_NAME; ++k) {
-//                        if(lastNames[sortCache[j]][k] < lastNames[sortCache[j + 1]][k]) {
-//                            break;
-//                        } else if (lastNames[sortCache[j]][k] > lastNames[sortCache[j + 1]][k]) {
-//                            int tmp = sortCache[j];
-//                            sortCache[j] = sortCache[j + 1];
-//                            sortCache[j + 1] = tmp;
-//                            break;
-//                        } else {
-//                            continue;
-//                        }
-//                    }
-//                }
             }
         }
     }
-    for (int l = 0; l < 4; ++l) {
-        printf("%s",firstNames[sortCache[l]]);
-    }
+//    for (int l = 0; l < 4; ++l) {
+//        printf("%s",firstNames[sortCache[l]]);
+//    }
 }
 
 void ProcessFirstOperation(char inputLine[]) {
@@ -677,23 +651,39 @@ void ProcessFirstOperation(char inputLine[]) {
     }
 }
 
-void ProcessAggregationAfterOption(int (*aggregationFunction)(int)) {
+void ProcessAggregationAfterOption(int (*aggregationFunction)(int), AggregationType aggregationType) {
 
     int max = -1;
     int maxIndex = -1;
-    for (int i = 0; i < MAX_STUDENTS; ++i) {
-        if (max < aggregationFunction(i)) {
-            max = aggregationFunction(i);
-            maxIndex = i;
-        }
+    switch (aggregationType) {
+        case MAXIMAL_STUDENT:
+            for (int i = 0; i < MAX_STUDENTS; ++i) {
+                if (max < aggregationFunction(i)) {
+                    max = aggregationFunction(i);
+                    maxIndex = i;
+                }
+            }
+            printf("%s %s, %d\n",firstNames[maxIndex],lastNames[maxIndex],max);
+            break;
+        case ALL_STUDENTS:
+            for (int i = 0; i < MAX_STUDENTS; ++i) {
+                if (firstNames[sortCache[i]][0] != '\0') {
+                    printf("%s %s, %d\n", firstNames[sortCache[i]], lastNames[sortCache[i]], aggregationFunction(i));
+                }
+            }
+            break;
+        default:
+            printf("ERROR\n");
     }
 
-    printf("%s %s, %d\n",firstNames[maxIndex],lastNames[maxIndex],max);
+
+
 
 }
 
 
-void ProcessAggregation() {
+void ProcessAggregation(AggregationType aggregationType) {
+    AggregationType saveType = aggregationType;
     if (CountCurrentAmountOfStudent() == 0) {
         printf("Error: there are no students.\n");
         return;
@@ -703,19 +693,19 @@ void ProcessAggregation() {
     gets(inputLine);
     switch (inputLine[0]) {
         case 'a':
-            ProcessAggregationAfterOption(AverageForStudent);
+            ProcessAggregationAfterOption(AverageForStudent,aggregationType);
             break;
         case 'b':
-            ProcessAggregationAfterOption(MaxGradeForStudent);
+            ProcessAggregationAfterOption(MaxGradeForStudent,aggregationType);
             break;
         case 'c':
-            ProcessAggregationAfterOption(MinGradeForStudent);
+            ProcessAggregationAfterOption(MinGradeForStudent,aggregationType);
             break;
         case 'd':
-            ProcessAggregationAfterOption(CourseSumForStudent);
+            ProcessAggregationAfterOption(CourseSumForStudent,aggregationType);
             break;
         case 'e':
-            ProcessAggregationAfterOption(CourseCountForStudent);
+            ProcessAggregationAfterOption(CourseCountForStudent,aggregationType);
             break;
         case '0':
             break;
