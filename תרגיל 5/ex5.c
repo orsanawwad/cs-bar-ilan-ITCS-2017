@@ -10,6 +10,7 @@ char firstNames[MAX_STUDENTS][MAX_NAME];
 char lastNames[MAX_STUDENTS][MAX_NAME];
 char courses[MAX_STUDENTS][MAX_COURSES][MAX_NAME];
 int grades[MAX_STUDENTS][MAX_COURSES];
+int sortCache[MAX_STUDENTS];
 int lastUpdated = -1;
 //char grades[MAX_STUDENTS][MAX_COURSES][4];
 
@@ -254,6 +255,11 @@ void ResetAllGradesInIndex(int deletionIndex) {
     }
 }
 
+void ResetSortCache() {
+    for (int i = 0; i < MAX_STUDENTS; ++i) {
+        sortCache[i] = i;
+    }
+}
 
 void ResetEverything() {
     for (int i = 0; i < MAX_STUDENTS; ++i) {
@@ -269,6 +275,7 @@ void ResetEverything() {
         DeleteLastNameInIndex(i);
         DeleteAllCoursesInIndex(i);
         ResetAllGradesInIndex(i);
+        ResetSortCache();
     }
 }
 
@@ -576,10 +583,83 @@ void GetName(char inputLine[]) {
     }
 }
 
+void SwapPointers(char *a, char*b) {
+
+}
+
+void UpdateSortCache() {
+    for (int i = 0; i < MAX_STUDENTS - 1; ++i) {
+        if (firstNames[sortCache[i]] == '\0') {
+            continue;
+        } else {
+            for (int j = 0; j < MAX_STUDENTS - 1 - i; ++j) {
+//                int firstCompareLength = (int)strlen(firstNames[sortCache[j]]);
+//                int secondCompareLength = (int)strlen(firstNames[sortCache[j + 1]]);
+//                int minCount = 0;
+//                if (firstCompareLength > secondCompareLength) {
+//                    minCount = secondCompareLength;
+//                } else {
+//                    minCount = firstCompareLength;
+//                }
+//                for (int k = 0; k < minCount; ++k) {
+//                    int charCompare = strcmp(firstNames[sortCache[j]], firstNames[sortCache[j + 1]]);
+                boolean IsFirstNameEquals = true;
+//                if (firstNames[sortCache[j + 1]][0] == '\0') {
+//                    IsFirstNameEquals = false;
+//                }
+//                for (int k = 0; k < MAX_NAME - 1; ++k) {
+//
+//                }
+                if (firstNames[sortCache[j + 1]][0] != '\0') {
+                    int wordCompare = strcmp(firstNames[sortCache[j]], firstNames[sortCache[j + 1]]);
+                    if(wordCompare < 0) {
+                        continue;
+                    } else if (wordCompare > 0) {
+                        int tmp = sortCache[j];
+                        sortCache[j] = sortCache[j + 1];
+                        sortCache[j + 1] = tmp;
+                        continue;
+                    } else {
+                        wordCompare = strcmp(lastNames[sortCache[j]], lastNames[sortCache[j + 1]]);
+                        if(wordCompare < 0) {
+                            continue;
+                        } else if (wordCompare > 0) {
+                            int tmp = sortCache[j];
+                            sortCache[j] = sortCache[j + 1];
+                            sortCache[j + 1] = tmp;
+                            continue;
+                        } else {
+                            continue;
+                        }
+                    }
+                }
+//                if (IsFirstNameEquals) {
+//                    for (int k = 0; k < MAX_NAME; ++k) {
+//                        if(lastNames[sortCache[j]][k] < lastNames[sortCache[j + 1]][k]) {
+//                            break;
+//                        } else if (lastNames[sortCache[j]][k] > lastNames[sortCache[j + 1]][k]) {
+//                            int tmp = sortCache[j];
+//                            sortCache[j] = sortCache[j + 1];
+//                            sortCache[j + 1] = tmp;
+//                            break;
+//                        } else {
+//                            continue;
+//                        }
+//                    }
+//                }
+            }
+        }
+    }
+    for (int l = 0; l < 4; ++l) {
+        printf("%s",firstNames[sortCache[l]]);
+    }
+}
+
 void ProcessFirstOperation(char inputLine[]) {
     StatusParseStatus parseStatus = ValidateLineInput(inputLine);
     switch (parseStatus) {
         case ADDED_STUDENT:
+            UpdateSortCache();
             printf("Student \"%s %s\" added.\n",firstNames[lastUpdated],lastNames[lastUpdated]);
             break;
         case UPDATED_STUDENT:
@@ -660,7 +740,9 @@ void ProcessAggregation() {
 //a a:a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;a,0;
 
 // Yossi Cohen: OOP,100; LA, 100; LAAAAA, 88;
-// Yossi    Sham: QQQQ, 10; LA,100; LAAAAA, 88;
+// Tal Hanan: OOP,100; LA, 100; LAAAAA, 88;
+// Tal Ianan: OOP,100; LA, 100; LAAAAA, 88;
+// Avi    Sham: QQQQ, 10; LA,100; LAAAAA, 88;
 
 
 //// Yossi Cohen: OOP,100;LAA,
