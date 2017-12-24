@@ -2,20 +2,42 @@
 #include <string.h>
 #include "ex5.h"
 
-#define MAX_STUDENTS 50
-#define MAX_NAME 20
-#define MAX_COURSES 20
+//#define MAX_STUDENTS 50
+//#define MAX_NAME 20
+//#define MAX_COURSES 20
+//
+//char firstNames[MAX_STUDENTS][MAX_NAME] = {
+//        "Moshi","Sushi","Toti","Avi","Eli","Avinatan"
+//};
+//char lastNames[MAX_STUDENTS][MAX_NAME] = {
+//        "Cohen","Shetrit","Flava","Fredes","Sabana","Hasedem"
+//};
+//
+//char courses[MAX_STUDENTS][MAX_COURSES][MAX_NAME] = {
+//    {"OOP","Linear Algebra","Intro To C"},
+//    {"JAVA","Android","Criminology","Singing"},
+//    {"Pilot","Car","Psechometry"},
+//    {"Driving","New Course","Intro To C"},
+//    {"OOP","Linear Algebra","CPP"},
+//    {"Poetry","Slideshows","Intro To C"}
+//};
+//int grades[MAX_STUDENTS][MAX_COURSES] = {
+//        {100,90,80},
+//        {70,10,20,70},
+//        {77,13,29},
+//        {100,20,30},
+//        {10,70,45},
+//        {54,68,34}
+//};
 
-
-
-
+/*
 int main1() {
 
     // Name length + space + name length to define the max length a name can hold
-    char firstNames[MAX_STUDENTS][MAX_NAME + 1];
-    char lastNames[MAX_STUDENTS][MAX_NAME + 1];
-    char courses[MAX_STUDENTS][MAX_COURSES][MAX_NAME + 1];
-    int grades[MAX_STUDENTS][MAX_COURSES];
+//    char firstNames[MAX_STUDENTS][MAX_NAME + 1];
+//    char lastNames[MAX_STUDENTS][MAX_NAME + 1];
+//    char courses[MAX_STUDENTS][MAX_COURSES][MAX_NAME + 1];
+//    int grades[MAX_STUDENTS][MAX_COURSES];
 
     char example[] = "Yossi Cohen: Linear Algebra,85; OOP,90; Intro C,100;";
     int nameEnd = 0;
@@ -132,36 +154,33 @@ char firstNames[MAX_STUDENTS][MAX_NAME + 1];
 char lastNames[MAX_STUDENTS][MAX_NAME + 1];
 char courses[MAX_STUDENTS][MAX_COURSES][MAX_NAME + 1];
 int grades[MAX_STUDENTS][MAX_COURSES];
-
+*/
 int main() {
+    ResetEverything();
     PrintMenu();
     while (1) {
-        int inputNumber = -1;
-        scanf("%d\n", &inputNumber);
+        char inputNumber[1] = {'\0'};
+        gets(inputNumber);
         char inputLine[201];
-        switch (inputNumber) {
-            case 0:
-                printf("PRESSED 0\n");
+        switch (inputNumber[0]) {
+            case '0':
                 return 0;
-            case 1:
-                printf("PRESSED 1\n");
+            case '1':
                 fgets(inputLine, 201, stdin);
                 ProcessFirstOperation(inputLine);
                 break;
-            case 2:
-                printf("PRESSED 2\n");
+            case '2':
+                DeleteStudent();
                 break;
-            case 3:
-                printf("PRESSED 3\n");
+            case '3':
+                ProcessAggregation();
                 break;
-            case 4:
-                printf("PRESSED 4\n");
+            case '4':
+                ProcessAggregation();
                 break;
-            case 5:
-                printf("PRESSED 5\n");
+            case '5':
                 break;
             default:
-                printf("PRESSED none\n");
                 break;
         }
         PrintNextOperationMessage();
@@ -169,11 +188,23 @@ int main() {
 }
 
 
-int mainasdasdasdasdasdasdasd() {
-    char input1[6];
-    char input2[4] = { 'a' , 'b' , '\0' , 'a'};
-    gets(input1);
-    fgets(input2,6,stdin);
-//    printf("%s\n",input);
+int mainasda() {
+    char str1[15];
+    char str2[15];
+    int ret;
+
+
+    strcpy(str1, "A");
+    strcpy(str2, "B");
+
+    ret = strcmp(str1, str2);
+
+    if(ret < 0) {
+        printf("str1 is less than str2");
+    } else if(ret > 0) {
+        printf("str2 is less than str1");
+    } else {
+        printf("str1 is equal to str2");
+    }
     return 0;
 }
