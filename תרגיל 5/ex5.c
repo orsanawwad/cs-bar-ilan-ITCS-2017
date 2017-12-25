@@ -345,6 +345,11 @@ StatusParseStatus ValidateLineInput(char inputLine[]) {
 ////int grades[MAX_STUDENTS][MAX_COURSES];
 //    char grades[MAX_STUDENTS][MAX_COURSES][4];
 
+    ////TODO: Split this function to multiple functions if possible
+    ////TODO: Check with piazza, and other people for additional sneaky conditional inputs to prevent pitfalls
+    ////TODO: Document the whole code
+    ////TODO: Clean up
+
     boolean BeganFirstNameCheck = false;
     boolean PassedFirstNameCheck = false;
     int firstNameBeginIndex = -1;
@@ -559,6 +564,7 @@ StatusParseStatus ValidateLineInput(char inputLine[]) {
 
 
 boolean DeleteStudent() {
+    ////TODO: CHANGE SCANF WITH FGETS AND PARSE NAME AND LASTNAME INDEPENDENTLY
     char firstName[MAX_NAME];
     char lastName[MAX_NAME];
     char DUMMY;

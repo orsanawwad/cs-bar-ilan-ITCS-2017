@@ -25,8 +25,8 @@
       <file leaf-file-name="main.c" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1954">
-              <caret line="179" column="27" lean-forward="false" selection-start-line="179" selection-start-column="27" selection-end-line="179" selection-end-column="27" />
+            <state relative-caret-position="156">
+              <caret line="173" column="22" lean-forward="true" selection-start-line="173" selection-start-column="22" selection-end-line="173" selection-end-column="22" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -47,8 +47,8 @@
       <file leaf-file-name="ex5.c" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/ex5.c">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="355">
-              <caret line="491" column="33" lean-forward="false" selection-start-line="491" selection-start-column="33" selection-end-line="491" selection-end-column="33" />
+            <state relative-caret-position="90">
+              <caret line="350" column="22" lean-forward="false" selection-start-line="350" selection-start-column="22" selection-end-line="350" selection-end-column="22" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -81,7 +81,6 @@
       <find>printif</find>
       <find>fetch</find>
       <find>PrintNextOperationMessage</find>
-      <find>delete</find>
       <find>sum</find>
       <find>average</find>
       <find>cmake_generator</find>
@@ -91,6 +90,7 @@
       <find>aggregationType</find>
       <find>print</find>
       <find>printf</find>
+      <find>delete</find>
       <find>ProcessAggre4gation</find>
     </findStrings>
   </component>
@@ -189,12 +189,12 @@
       <workItem from="1513502981364" duration="40396000" />
       <workItem from="1513872949209" duration="25161000" />
       <workItem from="1513952189192" duration="451000" />
-      <workItem from="1513972174440" duration="14361000" />
+      <workItem from="1513972174440" duration="17074000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80369000" />
+    <option name="totallyTimeSpent" value="83082000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -246,17 +246,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/ex5.c</url>
-          <line>574</line>
+          <line>580</line>
           <option name="timeStamp" value="142" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/ex5.c</url>
-          <line>569</line>
+          <line>575</line>
           <option name="timeStamp" value="143" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/ex5.c</url>
-          <line>576</line>
+          <line>582</line>
           <option name="timeStamp" value="145" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -266,7 +266,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/ex5.c</url>
-          <line>704</line>
+          <line>710</line>
           <option name="timeStamp" value="156" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
@@ -281,12 +281,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/ex5.c</url>
-          <line>686</line>
+          <line>692</line>
           <option name="timeStamp" value="217" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/ex5.c</url>
-          <line>518</line>
+          <line>523</line>
           <option name="timeStamp" value="230" />
         </line-breakpoint>
       </breakpoints>
@@ -423,8 +423,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1954">
-          <caret line="179" column="27" lean-forward="false" selection-start-line="179" selection-start-column="27" selection-end-line="179" selection-end-column="27" />
+        <state relative-caret-position="156">
+          <caret line="173" column="22" lean-forward="true" selection-start-line="173" selection-start-column="22" selection-end-line="173" selection-end-column="22" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
@@ -433,8 +433,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ex5.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="355">
-          <caret line="491" column="33" lean-forward="false" selection-start-line="491" selection-start-column="33" selection-end-line="491" selection-end-column="33" />
+        <state relative-caret-position="90">
+          <caret line="350" column="22" lean-forward="false" selection-start-line="350" selection-start-column="22" selection-end-line="350" selection-end-column="22" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
