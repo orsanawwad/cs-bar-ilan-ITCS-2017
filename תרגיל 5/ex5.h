@@ -3,6 +3,9 @@
 
 typedef enum { false, true } boolean;
 
+//Define boolean "data type" to easily express the code
+//typedef enum { false, true } boolean;
+
 typedef enum {
     UPDATED_STUDENT,ADDED_STUDENT,INVALID_STUDENT_INPUT,INSUFFICIENT_SPACE,UNKNOWN_PARSE_ERROR
 } StatusParseStatus;
@@ -10,6 +13,11 @@ typedef enum {
 typedef enum {
     MAXIMAL_STUDENT, ALL_STUDENTS
 } AggregationType;
+
+typedef enum {
+    StudentFirstName,StudentLastName,StudentCourse,StudentGrade
+} ParseSymbols;
+
 
 void ResetEverything();
 

@@ -12,32 +12,7 @@ char courses[MAX_STUDENTS][MAX_COURSES][MAX_NAME];
 int grades[MAX_STUDENTS][MAX_COURSES];
 int sortCache[MAX_STUDENTS];
 int lastUpdated = -1;
-//char grades[MAX_STUDENTS][MAX_COURSES][4];
 
-//Define boolean "data type" to easily express the code
-//typedef enum { false, true } boolean;
-
-enum Errors {
-    INVALID_INPUT,INVALID_OPERATION,STUDENT_DOESNT_EXIST
-};
-
-enum Student {
-    FIRST_NAME, LAST_NAME
-};
-
-typedef enum {
-    StudentFirstName,StudentLastName,StudentCourse,StudentGrade
-} ParseSymbols;
-
-
-boolean DEBUG_ENABLED = 0;
-void DebugLog(char debug_message[]) {
-    if (DEBUG_ENABLED) {
-        printf("DEBUG LOG: %s\n",debug_message);
-    }
-}
-
-// ✅
 void PrintMenu() {
     printf("Please select the operation:\n");
     printf("\t0. Exit.\n");
@@ -48,7 +23,6 @@ void PrintMenu() {
     printf("\t5. Print the menu.\n");
 }
 
-// ✅
 void PrintAggregationMenu() {
     printf("Please select the aggregation method:\n");
     printf("\ta. Average grade.\n");
@@ -59,55 +33,16 @@ void PrintAggregationMenu() {
     printf("\t0. Return the main menu.\n");
 }
 
-// ✅
 void PrintNextOperationMessage() {
     printf("Select the next operation (insert 5 for complete menu).\n");
 }
 
-// ✅
-void PrintAggregation(char firstName[], char lastName[], int grade) {
-    printf("%s %s, %d", firstName, lastName, grade);
-}
-
-char StopMarker(ParseSymbols parseSymbols) {
-    switch (parseSymbols) {
-        case StudentFirstName:
-            return ' ';
-            break;
-        case StudentLastName:
-            return ':';
-            break;
-        case StudentCourse:
-            return ',';
-            break;
-        case StudentGrade:
-            return ';';
-            break;
-    }
-}
-
-// ✅
-//// NOTE TO SELF: DONT FORGET TO ADD LIMITATION CHECKS HERE
-//// Limitations checks aka if length is longer than array and what not
 void ArrayCopy(char source[], int sourceBegin, char target[], int targetBegin, int length) {
     for(int i = sourceBegin, j = targetBegin; i < sourceBegin + length; i++, j++) {
-        DebugLog("Inside ArrayCopy Loop");
         target[j] = '\0';
         target[j] = source[i];
         target[j + 1] = '\0';
     }
-}
-
-void PrintStatusUpdate() {
-
-}
-
-void OperationPicker() {
-
-}
-
-void PrintErrors() {
-
 }
 
 int ConvertStrToInt(char inputToConvert[]) {
@@ -135,8 +70,6 @@ int CountCurrentAmountOfStudent() {
 
 int FetchEmptyStudentIndex() {
     for (int i = 0; i < MAX_STUDENTS; ++i) {
-        char DEBUGEMPTY = firstNames[i][0];
-        DebugLog("Inside FetchEmptyStudentIndex Loop");
         if (firstNames[i][0] == '\0') {
             return i;
         }
@@ -146,15 +79,12 @@ int FetchEmptyStudentIndex() {
 
 int FetchEmptyCourseIndexForStudent(int studentIndex) {
     for (int i = 0; i < MAX_COURSES; ++i) {
-//        char DEBUGEMPTY = courses;
-        DebugLog("Inside FetchEmptyStudentIndex Loop");
         if (courses[studentIndex][i][0] == '\0') {
             return i;
         }
     }
     return -1;
 }
-
 
 int GetFirstNameIndexFromDB(char firstName[]) {
     for (int i = 0; i < MAX_STUDENTS; ++i) {
@@ -175,23 +105,6 @@ void DeleteFirstNameInIndex(int deletionIndex) {
     }
 }
 
-boolean FirstNameExists(char firstName[]) {
-    if (GetFirstNameIndexFromDB(firstName) != -1) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-//int SetFirstNameToIndexInDB(char firstName[]) {
-//    for (int i = 0; i < MAX_STUDENTS; ++i) {
-//        if(strcmp(firstNames[i],firstName) == 0) {
-//            return i;
-//        }
-//    }
-//    return -1;
-//}
-
 int GetLastNameIndexFromDB(char lastName[]) {
     for (int i = 0; i < MAX_STUDENTS; ++i) {
         if(strcmp(lastNames[i],lastName) == 0) {
@@ -208,14 +121,6 @@ void SetLastNameIntoIndex(int index, char lastName[]) {
 void DeleteLastNameInIndex(int deletionIndex) {
     for (int i = 0; i < MAX_NAME; ++i) {
         lastNames[deletionIndex][i] = '\0';
-    }
-}
-
-boolean LastNameExists(char firstName[]) {
-    if (GetLastNameIndexFromDB(firstName) != -1) {
-        return true;
-    } else {
-        return false;
     }
 }
 
@@ -240,14 +145,9 @@ void DeleteAllCoursesInIndex(int deletionIndex) {
     }
 }
 
-int GetGradeFromIndex(int studentIndex,int courseIndex) {
-    return grades[studentIndex][courseIndex];
-}
-
 void SetGradeIntoIndex(int studentIndex,int courseIndex, int updatedGrade) {
     grades[studentIndex][courseIndex] = updatedGrade;
 }
-
 
 void ResetAllGradesInIndex(int deletionIndex) {
     for (int i = 0; i < MAX_COURSES; ++i) {
@@ -278,8 +178,6 @@ void ResetEverything() {
         ResetSortCache();
     }
 }
-
-
 
 int CourseCountForStudent(int studentIndex) {
     int count = 0;
@@ -334,16 +232,7 @@ int MinGradeForStudent(int studentIndex) {
     return min;
 }
 
-
-
-// ✅
 StatusParseStatus ValidateLineInput(char inputLine[]) {
-
-//    char firstNames[MAX_STUDENTS][MAX_NAME + 1];
-//    char lastNames[MAX_STUDENTS][MAX_NAME + 1];
-//    char courses[MAX_STUDENTS][MAX_COURSES][MAX_NAME + 1];
-////int grades[MAX_STUDENTS][MAX_COURSES];
-//    char grades[MAX_STUDENTS][MAX_COURSES][4];
 
     ////TODO: Split this function to multiple functions if possible
     ////TODO: Check with piazza, and other people for additional sneaky conditional inputs to prevent pitfalls
@@ -376,9 +265,10 @@ StatusParseStatus ValidateLineInput(char inputLine[]) {
     int courseGrades[66][2];
     int courseGradeIndex = 0;
 
+    int inputCourseNameCount = 0;
+    int inputCourseGradeCount = 0;
+
     for (int i = 0; i < strlen(inputLine); ++i) {
-        char DEBUG = inputLine[i];
-        DebugLog("Inside ValidateLineInput Loop");
         boolean IsSmallLetter = (boolean) (inputLine[i] >= 'a' && inputLine[i] <= 'z');
         boolean IsCapitalLetter = (boolean) (inputLine[i] >= 'A' && inputLine[i] <= 'Z');
         boolean IsLetter = (boolean) (IsCapitalLetter || IsSmallLetter);
@@ -398,7 +288,7 @@ StatusParseStatus ValidateLineInput(char inputLine[]) {
                     firstNameBeginIndex = i;
                 }
                 continue;
-            } else if (IsSpaceCharacter) {
+            } else if (IsSpaceCharacter && BeganFirstNameCheck) {
                 PassedFirstNameCheck = true;
                 if (firstNameEndIndex == -1) {
                     firstNameEndIndex = i;
@@ -434,12 +324,13 @@ StatusParseStatus ValidateLineInput(char inputLine[]) {
                     courseNameBeginIndex = i;
                 }
                 continue;
-            } else if (IsCommaCharacter) {
+            } else if (IsCommaCharacter && BeganCourseNameCheck) {
                 PassedCourseNameCheck = true;
                 courseNameEndIndex = i;
                 courseNames[courseNameIndex][0] = courseNameBeginIndex;
                 courseNames[courseNameIndex][1] = courseNameEndIndex;
                 courseNameIndex++;
+                inputCourseNameCount++;
                 courseNameBeginIndex = -1;
                 courseNameEndIndex = -1;
                 continue;
@@ -455,7 +346,7 @@ StatusParseStatus ValidateLineInput(char inputLine[]) {
                     courseGradeBeginIndex = i;
                 }
                 continue;
-            } else if (IsSemiColonCharacter) {
+            } else if (IsSemiColonCharacter && BeganCourseGradeCheck) {
                 PassedCourseGradeCheck = true;
                 if (courseGradeEndIndex == -1) {
                     courseGradeEndIndex = i;
@@ -463,6 +354,10 @@ StatusParseStatus ValidateLineInput(char inputLine[]) {
                 courseGrades[courseGradeIndex][0] = courseGradeBeginIndex;
                 courseGrades[courseGradeIndex][1] = courseGradeEndIndex;
                 courseGradeIndex++;
+                inputCourseGradeCount++;
+                if (inputCourseGradeCount == 5 && inputCourseNameCount == 5) {
+                    break;
+                }
                 courseGradeBeginIndex = -1;
                 courseGradeEndIndex = -1;
                 continue;
@@ -481,8 +376,6 @@ StatusParseStatus ValidateLineInput(char inputLine[]) {
 
     //TODO: Add checks if name exists and if course exists etc...
     if (PassedFirstNameCheck && PassedLastNameCheck && PassedCourseNameCheck && PassedCourseGradeCheck) {
-//        DebugLog("Inside ValidateLineInput INSERTION");
-
 
         char tempFirstName[MAX_NAME];
         char tempLastName[MAX_NAME];
@@ -562,7 +455,6 @@ StatusParseStatus ValidateLineInput(char inputLine[]) {
     return UNKNOWN_PARSE_ERROR;
 }
 
-
 boolean DeleteStudent() {
     ////TODO: CHANGE SCANF WITH FGETS AND PARSE NAME AND LASTNAME INDEPENDENTLY
     char firstName[MAX_NAME];
@@ -582,20 +474,6 @@ boolean DeleteStudent() {
     } else {
         return false;
     }
-}
-
-void GetName(char inputLine[]) {
-    for (int i = 0; inputLine[i] == ':'; ++i) {
-        boolean IsSmallLetter = (boolean) (inputLine[i] >= 'a' && inputLine[i] <= 'z');
-        boolean IsCapitalLetter = (boolean) (inputLine[i] >= 'A' && inputLine[i] <= 'Z');
-        boolean IsLetter = (boolean) (IsCapitalLetter || IsSmallLetter);
-        boolean IsSpaceCharacter = (boolean) (inputLine[i] == ' ');
-
-    }
-}
-
-void SwapPointers(char *a, char*b) {
-
 }
 
 void UpdateSortCache() {
@@ -686,7 +564,6 @@ void ProcessAggregationAfterOption(int (*aggregationFunction)(int), AggregationT
 
 
 }
-
 
 void ProcessAggregation(AggregationType aggregationType) {
     AggregationType saveType = aggregationType;
