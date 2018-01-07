@@ -1,0 +1,4 @@
+"/Users/orsanawwad/Library/Application Support/JetBrains/Toolbox/apps/CLion/ch-0/172.4343.16/CLion.app/Contents/bin/cmake/bin/cmake" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" "/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6"
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/cmake-build-debug

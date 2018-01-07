@@ -1,0 +1,3 @@
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/cmake-build-debug/CMakeFiles/_6.dir

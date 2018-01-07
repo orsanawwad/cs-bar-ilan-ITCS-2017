@@ -1,0 +1,76 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/game.c
+person.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/person.h
+stdlib.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/stdlib.h
+stdio.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/stdio.h
+utils.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/utils.h
+
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/game.h
+person.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/person.h
+
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/main.c
+person.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/person.h
+utils.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/utils.h
+sorting.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/sorting.h
+game.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/game.h
+stdio.h
+-
+
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/person.c
+stdlib.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/stdlib.h
+person.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/person.h
+utils.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/utils.h
+stdio.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/stdio.h
+stdarg.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/stdarg.h
+
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/person.h
+
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/sorting.c
+stdio.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/stdio.h
+person.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/person.h
+utils.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/utils.h
+string.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/string.h
+
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/sorting.h
+person.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/person.h
+
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/utils.c
+stdio.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/stdio.h
+person.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/person.h
+string.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/string.h
+stdlib.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/stdlib.h
+
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/utils.h
+person.h
+/Users/orsanawwad/Documents/Projects/University/שנה א/סמסטר א/89110 - מבוא למדעי המחשב/שיעורי בית/תרגיל 6/person.h
+
