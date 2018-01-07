@@ -1,5 +1,13 @@
+/*****************************************
+* Student name: Orsan Awwad
+* Student ID: *
+* Course Exercise Group: 01
+* Exercise name: Exercise 6
+******************************************/
+
 #ifndef PERSON_H
 #define PERSON_H
+
 
 struct Person {
     char* name;

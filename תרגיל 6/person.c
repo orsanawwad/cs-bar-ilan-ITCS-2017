@@ -1,12 +1,8 @@
-//
-// Created by Orsan Awwad on 31/12/2017.
-//
-
 /*****************************************
 * Student name: Orsan Awwad
 * Student ID: *
 * Course Exercise Group: 01
-* Exercise name: !(!(!(!(!(!(!(!(!(!(!(!(ENTER YOUR EXERCISE NAME HERE)!)!)!)!)!)!)!)!)!)!
+* Exercise name: Exercise 6
 ******************************************/
 
 #include "stdlib.h"
@@ -15,6 +11,13 @@
 #include "stdio.h"
 #include "stdarg.h"
 
+/**************************************************************************
+ * Function name: PrintPerson
+ * Input: Person pointer to print it's details
+ * Output: No output
+ * The function operation: Print the name, id and the children if any
+ *                         exists.
+ *************************************************************************/
 void PrintPerson(Person* person) {
     printf("Name: %s\n",person->name);
     printf("ID: %d\n",person->id);
@@ -23,30 +26,54 @@ void PrintPerson(Person* person) {
     }
 }
 
+/**************************************************************************
+ * Function name: CreatePerson
+ * Input: No input
+ * Output: Returns pointer to a newly allocated person object
+ * The function operation: Allocates new person object and calls
+ *                         InitPersonValues to initialize all of it's
+ *                         values like name, id, and kids names if there's
+ *                         any, then returns the pointer to that object.
+ *************************************************************************/
 Person* CreatePerson() {
     Person* pPerson = malloc(sizeof(Person));
     if (pPerson != NULL) {
         InitPersonValues(pPerson);
         return pPerson;
     } else {
-        //TODO: Add error handling
+        puts("Could not allocate memory for new person");
         return NULL;
     }
 }
 
-void CreateNext(Person* person, int isNextNext, ...) {
-    if (isNextNext == 0) {
+/**************************************************************************
+ * Function name: CreateNext
+ * Input: Person pointerz, IsNextNext boolean, variadic list of Person struct
+ *        pointers.
+ * Output: No output.
+ * The function operation: If IsNextNext is false, it takes the current
+ *                         person and creates new person in its next
+ *                         pointer, else, it takes the variadic list and
+ *                         extracts the person object from there, then
+ *                         it replaces the next pointer to of the
+ *                         original person object to point to a new person
+ *                         then in the new person next's pointer is then
+ *                         pointed to the person that was extracted from
+ *                         the variadic list.
+ *************************************************************************/
+void CreateNext(Person* person, int IsNextNext, ...) {
+    if (IsNextNext == 0) {
         if (person != NULL) {
-            //TODO: Find last one and connect... what?
             person->next = CreatePerson();
+            if (person->next == NULL) {
+                puts("Error creating next person.");
+            }
         } else {
-            //TODO: Find last one in the circle and connect the new one to it
-            //TODO: Rethink what this else is supposed to do (error handling probably?)
-            //EDIT: We might not need it because the previous function InitHungerGames will close the loop
+            puts("Error creating person, received null pointer.");
         }
     } else {
         va_list ap;
-        va_start(ap,isNextNext);
+        va_start(ap,IsNextNext);
         Person* theLatter = va_arg(ap, Person*);
         va_end(ap);
         person->next = CreatePerson();
@@ -54,6 +81,15 @@ void CreateNext(Person* person, int isNextNext, ...) {
     }
 }
 
+/**************************************************************************
+ * Function name: SelfDestruct
+ * Input: Person pointer
+ * Output: NULL pointer
+ * The function operation: Frees name, each kid, and the kids pointers,
+ *                         set all the functions to null, and free the
+ *                         person object pointer itself, then return
+ *                         null.
+ *************************************************************************/
 Person* SelfDestruct(Person* person) {
     free(person->name);
     for (int i = 0; i < person->numOfKids; ++i) {
@@ -69,40 +105,60 @@ Person* SelfDestruct(Person* person) {
     return NULL;
 }
 
+/**************************************************************************
+ * Function name: KillNext
+ * Input: Person pointer
+ * Output: No output
+ * The function operation: This function just calls
+ *                         ConnectLeftAndRightOfPerson which takes two
+ *                         pointers to person objects and deletes the
+ *                         second one and connect the first and the one
+ *                         that was after the second input person.
+ *************************************************************************/
 void KillNext(Person* person) {
-    //TODO: Add checks like null issues and if the next/previous person is the same person (AKA only one in the circle)
-//    Person* previousToThePersonToRemove = FindPreviousPerson(person, person);
-//    Person* nextToPersonToRemove = person->next;
-//    person->SelfDestruct(person);
-//    previousToThePersonToRemove->next = nextToPersonToRemove;
-
     ConnectLeftAndRightOfPerson(person,person->next);
 }
 
+/**************************************************************************
+ * Function name: InitPersonValues
+ * Input: Person pointer
+ * Output: No output
+ * The function operation: This function asks the user for information
+ *                         about the person's name and id and number of
+ *                         kids, if there were any number of kids it then
+ *                         asks for their names and sets it.
+ *************************************************************************/
 void InitPersonValues(Person* person) {
     if (person != NULL) {
-        //TODO: Add NULL Check
         puts("Name:");
         person->name = ReadInputString();
-        //TODO: Add negative number check
         puts("ID:");
         person->id = ReadNumber();
-        //TODO: Add negative number check and if zero check
+        if (person->id < 0) {
+            //Id number was negative
+            person->id = -1*person->id;
+        }
         puts("Num of kids:");
         person->numOfKids = ReadNumber();
-        //TODO: Add NULL check for out of memory issue
+        if (person->numOfKids < 0) {
+            //Number of kids was negative
+            person->numOfKids = -1*person->numOfKids;
+        }
         person->kids = (char **)calloc(person->numOfKids, sizeof(char *));
-        for (int i = 0; i < person->numOfKids; ++i) {
-            //TODO: Add printf with numbered message
-            printf("Kid #%d name:\n",i+1);
-            person->kids[i] = ReadInputString();
+        if (person->kids != NULL) {
+            for (int i = 0; i < person->numOfKids; ++i) {
+                printf("Kid #%d name:\n", i + 1);
+                person->kids[i] = ReadInputString();
+            }
+        } else {
+            puts("Error Initializing values, error while allocating memory for kids");
+            return;
         }
         person->Print = PrintPerson;
         person->CreateNext = CreateNext;
         person->KillNext = KillNext;
         person->SelfDestruct = SelfDestruct;
-        //TODO: Point the functions
     } else {
-        //TODO: Add null pointer error
+        puts("Error Initializing values, received pointer to NULL");
     }
 }

@@ -1,3 +1,10 @@
+/*****************************************
+* Student name: Orsan Awwad
+* Student ID: *
+* Course Exercise Group: 01
+* Exercise name: Exercise 6
+******************************************/
+
 #ifndef GAME_H
 #define GAME_H
 
