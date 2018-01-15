@@ -2,6 +2,7 @@
 #include "utils.h"
 #include "sorting.h"
 #include "game.h"
+#include "stdlib.h"
 
 #include <stdio.h>
 

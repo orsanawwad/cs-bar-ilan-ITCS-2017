@@ -112,8 +112,9 @@ Person* BubbleSortPersonAlgo(Person* head, int (*CompareFunction)(Person* ,Perso
 Person* SortCircleByID(Person* head) {
     if (head == NULL) {
         return NULL;
+    } else {
+        return BubbleSortPersonAlgo(head, SortIDIfCheck);
     }
-    return BubbleSortPersonAlgo(head,SortIDIfCheck);
 }
 
 /**************************************************************************
@@ -127,6 +128,7 @@ Person* SortCircleByID(Person* head) {
 Person* SortCircleByName(Person* head) {
     if (head == NULL) {
         return NULL;
+    } else {
+        return BubbleSortPersonAlgo(head, SortNameIfCheck);
     }
-    return BubbleSortPersonAlgo(head,SortNameIfCheck);
 }

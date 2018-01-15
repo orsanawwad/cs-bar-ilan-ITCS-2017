@@ -35,14 +35,14 @@
  *                         function of that person.
  *************************************************************************/
 void PrintCircle(Person* head) {
-    Person* pHead = head;
+    Person* ptrHead = head;
     if (head != NULL) {
         puts(PRINT_CIRCLE_LINES);
         do {
-            pHead->Print(pHead);
+            ptrHead->Print(ptrHead);
             puts(PRINT_CIRCLE_LINES);
-            pHead = pHead->next;
-        } while (head != pHead);
+            ptrHead = ptrHead->next;
+        } while (head != ptrHead);
     }
 }
 
@@ -58,11 +58,11 @@ void PrintCircle(Person* head) {
 char* ReadInputString() {
     char buffer[BUFFER_SIZE] = {'\0'};
     scanf("%s",&buffer);
-    char* pText = NULL;
-    pText = (char *)malloc((strlen(buffer) + 1));
-    if (pText != NULL) {
-        strcpy(pText, buffer);
-        return pText;
+    char* ptrText = NULL;
+    ptrText = (char *)malloc((strlen(buffer) + 1));
+    if (ptrText != NULL) {
+        strcpy(ptrText, buffer);
+        return ptrText;
     } else {
         return NULL;
     }
@@ -113,16 +113,16 @@ int ReadNumber() {
  *                         pointer of that person.
  *************************************************************************/
 Person* FindPreviousPerson(Person* head, Person* person) {
-    Person* pHead = head;
+    Person* ptrHead = head;
     Person* targetPerson = NULL;
     do {
-        if (pHead->next == person) {
-            targetPerson = pHead;
+        if (ptrHead->next == person) {
+            targetPerson = ptrHead;
             return targetPerson;
         } else {
-            pHead = pHead->next;
+            ptrHead = ptrHead->next;
         }
-    } while (pHead != head);
+    } while (ptrHead != head);
     return targetPerson;
 }
 
@@ -135,18 +135,18 @@ Person* FindPreviousPerson(Person* head, Person* person) {
  *                         that person pointer.
  *************************************************************************/
 Person* FindPerson(Person* head, int id) {
-    Person* pHead = head;
+    Person* ptrHead = head;
     do {
-        if (pHead != NULL) {
-            if (pHead->id == id) {
-                return pHead;
+        if (ptrHead != NULL) {
+            if (ptrHead->id == id) {
+                return ptrHead;
             } else {
-                pHead = pHead->next;
+                ptrHead = ptrHead->next;
             }
         } else {
             return NULL;
         }
-    } while (pHead != head);
+    } while (ptrHead != head);
     return NULL;
 }
 
@@ -228,10 +228,10 @@ void ScoreBoardPrint(Person *killer, Person *victim) {
  *************************************************************************/
 int CountNodes(Person* head) {
     int count = 0;
-    Person* pHead = head;
+    Person* ptrHead = head;
     do {
         count++;
-        pHead = pHead->next;
-    } while (pHead != head);
+        ptrHead = ptrHead->next;
+    } while (ptrHead != head);
     return count;
 }

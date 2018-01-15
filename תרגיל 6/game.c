@@ -48,29 +48,29 @@
  *                         circle aka the head of circle.
  *************************************************************************/
 Person* InitTheHungerGame() {
-    Person* pHead = NULL;
+    Person* ptrHead = NULL;
     Person* followUpPerson = NULL;
-    int ShouldAdd = -1;
+    int shouldAdd;
     do {
         puts(ASK_ADD_PERSON);
-        ShouldAdd = ReadNumber();
-        if (ShouldAdd == 1) {
-            if (pHead == NULL) {
-                pHead = CreatePerson();
-                if (pHead == NULL) {
+        shouldAdd = ReadNumber();
+        if (shouldAdd == 1) {
+            if (ptrHead == NULL) {
+                ptrHead = CreatePerson();
+                if (ptrHead == NULL) {
                     //If failed allocating for a new person the first time, exit function
                     puts(ERROR_ALLOCATING);
                     return NULL;
                 } else {
-                    followUpPerson = pHead;
+                    followUpPerson = ptrHead;
                 }
             } else {
                 followUpPerson->CreateNext(followUpPerson,0);
                 if (followUpPerson->next == NULL) {
                     //If creating the next person failed, kill everyone else previously created (aka free them)
-                    while (pHead!=NULL) {
-                        pHead->SelfDestruct(pHead);
-                        pHead = pHead->next;
+                    while (ptrHead!=NULL) {
+                        ptrHead->SelfDestruct(ptrHead);
+                        ptrHead = ptrHead->next;
                     }
                 } else {
                     followUpPerson = followUpPerson->next;
@@ -78,14 +78,14 @@ Person* InitTheHungerGame() {
             }
         } else {
             if (followUpPerson != NULL) {
-                followUpPerson->next = pHead;
+                followUpPerson->next = ptrHead;
                 break;
             } else {
-                pHead = NULL;
+                ptrHead = NULL;
             }
         }
-    } while (ShouldAdd != 0);
-    return pHead;
+    } while (shouldAdd != 0);
+    return ptrHead;
 }
 
 /**************************************************************************
@@ -143,10 +143,10 @@ void InsertLaters(Person* head) {
  *************************************************************************/
 Person* RemoveCowards(Person* head) {
     if (head != NULL) {
-        Person *pHead = head;
-        int IsThereACoward = -1;
+        Person *ptrHead = head;
+        int IsThereACoward;
         do {
-            if (pHead == NULL) {
+            if (ptrHead == NULL) {
                 return NULL;
             }
             puts(ASK_COWARD);
@@ -154,11 +154,11 @@ Person* RemoveCowards(Person* head) {
             if (IsThereACoward == 1) {
                 puts(ASK_COWARD_ID);
                 int idNumber = ReadNumber();
-                Person *theCoward = FindPerson(pHead, idNumber);
+                Person *theCoward = FindPerson(ptrHead, idNumber);
                 if (theCoward != NULL) {
                     printf(ASK_COWARD_SHOUT_MESSAGE, theCoward->name);
-                    //This function just kills the coward and connect pHead to the one after the coward
-                    pHead = ConnectLeftAndRightOfPerson(pHead, theCoward);
+                    //This function just kills the coward and connect ptrHead to the one after the coward
+                    ptrHead = ConnectLeftAndRightOfPerson(ptrHead, theCoward);
                 } else {
                     printf(ASK_COWARD_NO_ID, idNumber);
                 }
@@ -166,7 +166,7 @@ Person* RemoveCowards(Person* head) {
                 break;
             }
         } while (IsThereACoward != 0);
-        return pHead;
+        return ptrHead;
     } else {
         return NULL;
     }
@@ -192,12 +192,12 @@ void LetTheHungerGameBegin(Person* head) {
     if (head == NULL) {
         return;
     }
-    Person* pHead = head;
-    while (pHead->next != pHead) {
-        ScoreBoardPrint(pHead, pHead->next);
-        pHead->KillNext(pHead);
-        pHead = pHead->next;
+    Person* ptrHead = head;
+    while (ptrHead->next != ptrHead) {
+        ScoreBoardPrint(ptrHead, ptrHead->next);
+        ptrHead->KillNext(ptrHead);
+        ptrHead = ptrHead->next;
     }
-    printf(WIN_MESSAGE, pHead->name);
-    pHead->SelfDestruct(pHead);
+    printf(WIN_MESSAGE, ptrHead->name);
+    ptrHead->SelfDestruct(ptrHead);
 }

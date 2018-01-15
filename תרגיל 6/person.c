@@ -56,10 +56,10 @@ void PrintPerson(Person* person) {
  *                         any, then returns the pointer to that object.
  *************************************************************************/
 Person* CreatePerson() {
-    Person* pPerson = (Person*)malloc(sizeof(Person));
-    if (pPerson != NULL) {
-        InitPersonValues(pPerson);
-        return pPerson;
+    Person* ptrPerson = (Person*)malloc(sizeof(Person));
+    if (ptrPerson != NULL) {
+        InitPersonValues(ptrPerson);
+        return ptrPerson;
     } else {
         //If Initializing the value failed, return NULL
         puts(PERSON_ERROR);
@@ -69,8 +69,8 @@ Person* CreatePerson() {
 
 /**************************************************************************
  * Function name: CreateNext
- * Input: Person pointerz, IsNextNext boolean, variadic list of Person struct
- *        pointers.
+ * Input: Person pointerz, IsNextNext boolean, variadic that contains
+ *        pointers to Person struct.
  * Output: No output.
  * The function operation: If IsNextNext is false, it takes the current
  *                         person and creates new person in its next
@@ -94,10 +94,10 @@ void CreateNext(Person* person, int IsNextNext, ...) {
             puts(PERSON_ERROR_CREATE_NULL);
         }
     } else {
-        va_list ap;
-        va_start(ap,IsNextNext);
-        Person* theLatter = va_arg(ap, Person*);
-        va_end(ap);
+        va_list variadicNextList;
+        va_start(variadicNextList,IsNextNext);
+        Person* theLatter = va_arg(variadicNextList, Person*);
+        va_end(variadicNextList);
         Person* newPerson = CreatePerson();
         if (newPerson == NULL) {
             //If Creating a new person failed, exit the function
@@ -160,15 +160,15 @@ void KillNext(Person* person) {
  *************************************************************************/
 void InitPersonValues(Person* person) {
     if (person != NULL) {
-        puts("Name:");
+        puts(ASK_PERSON_NAME);
         person->name = ReadInputString();
-        puts("ID:");
+        puts(ASK_PERSON_ID);
         person->id = ReadNumber();
         if (person->id < 0) {
             //Id number was negative
             person->id = -1*person->id;
         }
-        puts("Num of kids:");
+        puts(ASK_PERSON_NUM_OF_KIDS);
         person->numOfKids = ReadNumber();
         if (person->numOfKids < 0) {
             //Number of kids was negative
@@ -178,7 +178,7 @@ void InitPersonValues(Person* person) {
         if (person->kids != NULL) {
             int i;
             for (i = 0; i < person->numOfKids; ++i) {
-                printf("Kid #%d name:\n", i + 1);
+                printf(ASK_PERSON_KID_NUMBER_NAME, i + 1);
                 person->kids[i] = ReadInputString();
                 if (person->kids[i] == NULL) {
                     //If one of the children failed to get a name, free everything and exit function
