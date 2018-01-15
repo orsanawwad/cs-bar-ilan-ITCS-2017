@@ -8,6 +8,7 @@
 #ifndef PERSON_H
 #define PERSON_H
 
+//Person struct that holds the person information like name, id and kids...
 struct Person {
     char* name;
     int id;

@@ -84,17 +84,15 @@ Person* FindPreviousPerson(Person* head, Person* person);
 Person* ConnectLeftAndRightOfPerson(Person* head, Person* personToRemove);
 
 /**************************************************************************
- * Function name: BuildAndPrintKillStatement
+ * Function name: ScoreBoardPrint
  * Input: Person pointer killer, Person pointer victim
  * Output: No output
- * The function operation: The function calculates the amount of characters
- *                         that is going to get displayed in the text, adds
- *                         one for null character, then allocates the
- *                         correct amount of memory, then concatenates the
- *                         words to form the kill print text, then frees
- *                         the memory of that text after printing it.
+ * The function operation: Prints the who kills who by printing the name
+ *                         of the killer, then " kills " then the killer name
+ *                         then their children names, with " and " before
+ *                         each one.
  *************************************************************************/
-void BuildAndPrintKillStatement(Person* killer, Person* victim);
+void ScoreBoardPrint(Person *killer, Person *victim);
 
 /**************************************************************************
  * Function name: CountNodes

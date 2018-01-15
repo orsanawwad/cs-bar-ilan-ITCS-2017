@@ -75,3 +75,15 @@ int main() {
     }
     return 0;
 }
+
+
+//int main(){
+//    Person* head=InitTheHungerGame();
+//    PrintCircle(head);
+//    InsertLaters(head);
+//    head=RemoveCowards(head);
+//    PrintCircle(head);
+//    head=SortCircleByID(head);
+//    LetTheHungerGameBegin(head);
+//    return 0;
+//}

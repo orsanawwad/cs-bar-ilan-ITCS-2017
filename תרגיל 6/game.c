@@ -10,6 +10,28 @@
 #include "stdio.h"
 #include "utils.h"
 
+/**
+ * Constants
+ */
+
+#define ASK_ADD_PERSON "Add a person to the game? (0|1)"
+
+#define ASK_LATE "Are you late? (0|1)"
+
+#define ASK_LATE_ID "Insert your best friend's ID:"
+
+#define ASK_LATE_NO_ID "No Such ID: %d\n"
+
+#define ASK_COWARD "Is there a coward in here? (0|1)"
+
+#define ASK_COWARD_ID "Insert your ID, you, lame pudding-heart coward:"
+
+#define ASK_COWARD_SHOUT_MESSAGE "Let the world know that you are a coward, %s!\n"
+
+#define ASK_COWARD_NO_ID "No Such ID: %d\n"
+
+#define WIN_MESSAGE "Ah, ha, ha, ha, stayin' alive, stayin' alive! Ah, ha, ha, ha, \"%s\" stayin' alive!\n"
+
 /**************************************************************************
  * Function name: InitTheHungerGame
  * Input: No input
@@ -24,14 +46,13 @@
  *                         circle aka the head of circle.
  *************************************************************************/
 Person* InitTheHungerGame() {
-    char dummy;
-    scanf("%c",&dummy);
     Person* pHead = NULL;
     Person* followUpPerson = NULL;
-    while (1) {
-        puts("Add a person to the game? (0|1)");
-        int option = ReadNumber();
-        if (option == 1) {
+    int ShouldAdd = -1;
+    do {
+        puts(ASK_ADD_PERSON);
+        ShouldAdd = ReadNumber();
+        if (ShouldAdd == 1) {
             if (pHead == NULL) {
                 pHead = CreatePerson();
                 followUpPerson = pHead;
@@ -42,12 +63,13 @@ Person* InitTheHungerGame() {
         } else {
             if (followUpPerson != NULL) {
                 followUpPerson->next = pHead;
-                return pHead;
+                break;
             } else {
-                return NULL;
+                pHead = NULL;
             }
         }
-    }
+    } while (ShouldAdd != 0);
+    return pHead;
 }
 
 /**************************************************************************
@@ -66,23 +88,26 @@ Person* InitTheHungerGame() {
  *************************************************************************/
 void InsertLaters(Person* head) {
     if (head != NULL) {
-        while (1) {
-            puts("Are you late? (0|1)");
-            int option = ReadNumber();
-            if (option == 1) {
-                puts("Insert your best friend's ID:");
+        int IsLate = -1;
+        do {
+            puts(ASK_LATE);
+            IsLate = ReadNumber();
+            if (IsLate == 1) {
+                puts(ASK_LATE_ID);
                 int idNumber = ReadNumber();
                 Person *findHead = FindPerson(head, idNumber);
                 if (findHead != NULL) {
                     Person *nextToFindHead = findHead->next;
                     findHead->CreateNext(findHead, 1, nextToFindHead);
                 } else {
-                    printf("No Such ID: %d\n", idNumber);
+                    printf(ASK_LATE_NO_ID, idNumber);
                 }
             } else {
                 break;
             }
-        }
+        } while (IsLate != 0);
+    } else {
+        return;
     }
 }
 
@@ -103,26 +128,29 @@ void InsertLaters(Person* head) {
 Person* RemoveCowards(Person* head) {
     if (head != NULL) {
         Person *pHead = head;
-        while (1) {
+        int IsThereACoward = -1;
+        do {
             if (pHead == NULL) {
                 return NULL;
             }
-            puts("Is there a coward in here? (0|1)");
-            int option = ReadNumber();
-            if (option == 1) {
-                puts("Insert your ID, you, lame pudding-heart coward:");
+            puts(ASK_COWARD);
+            IsThereACoward = ReadNumber();
+            if (IsThereACoward == 1) {
+                puts(ASK_COWARD_ID);
                 int idNumber = ReadNumber();
                 Person *theCoward = FindPerson(pHead, idNumber);
                 if (theCoward != NULL) {
-                    printf("Let the world know that you are a coward, %s!\n", theCoward->name);
+                    printf(ASK_COWARD_SHOUT_MESSAGE, theCoward->name);
+                    //This function just kills the coward and connect pHead to the one after the coward
                     pHead = ConnectLeftAndRightOfPerson(pHead, theCoward);
                 } else {
-                    printf("No Such ID: %d\n", idNumber);
+                    printf(ASK_COWARD_NO_ID, idNumber);
                 }
             } else {
-                return pHead;
+                break;
             }
-        }
+        } while (IsThereACoward != 0);
+        return pHead;
     } else {
         return NULL;
     }
@@ -150,10 +178,10 @@ void LetTheHungerGameBegin(Person* head) {
     }
     Person* pHead = head;
     while (pHead->next != pHead) {
-        BuildAndPrintKillStatement(pHead,pHead->next);
+        ScoreBoardPrint(pHead, pHead->next);
         pHead->KillNext(pHead);
         pHead = pHead->next;
     }
-    printf("Ah, ha, ha, ha, stayin' alive, stayin' alive! Ah, ha, ha, ha, \"%s\" stayin' alive!\n", pHead->name);
-    pHead->SelfDestruct(pHead);
+    printf(WIN_MESSAGE, pHead->name);
+    pHead->next = pHead->SelfDestruct(pHead);
 }

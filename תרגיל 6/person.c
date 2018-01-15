@@ -11,6 +11,26 @@
 #include "stdio.h"
 #include "stdarg.h"
 
+/**
+ * Constants
+ */
+
+#define PRINT_PERSON_NAME "Name: %s\n"
+
+#define PRINT_PERSON_ID "ID: %d\n"
+
+#define PRINT_PERSON_KIDS "Kid #%d: %s\n"
+
+#define PERSON_ERROR "Could not allocate memory for new person"
+
+#define PERSON_ERROR_CREATE "Error creating next person."
+
+#define PERSON_ERROR_CREATE_NULL "Error creating person, received null pointer."
+
+#define PERSON_ERROR_CREATE_KIDS "Error Initializing values, error while allocating memory for kids"
+
+#define PERSON_ERROR_RECEIVED_NULL "Error Initializing values, received pointer to NULL"
+
 /**************************************************************************
  * Function name: PrintPerson
  * Input: Person pointer to print it's details
@@ -19,10 +39,10 @@
  *                         exists.
  *************************************************************************/
 void PrintPerson(Person* person) {
-    printf("Name: %s\n",person->name);
-    printf("ID: %d\n",person->id);
+    printf(PRINT_PERSON_NAME,person->name);
+    printf(PRINT_PERSON_ID,person->id);
     for (int i = 0; i < person->numOfKids; ++i) {
-        printf("Kid #%d: %s\n",i+1,person->kids[i]);
+        printf(PRINT_PERSON_KIDS,i+1,person->kids[i]);
     }
 }
 
@@ -36,12 +56,12 @@ void PrintPerson(Person* person) {
  *                         any, then returns the pointer to that object.
  *************************************************************************/
 Person* CreatePerson() {
-    Person* pPerson = malloc(sizeof(Person));
+    Person* pPerson = (Person*)malloc(sizeof(Person));
     if (pPerson != NULL) {
         InitPersonValues(pPerson);
         return pPerson;
     } else {
-        puts("Could not allocate memory for new person");
+        puts(PERSON_ERROR);
         return NULL;
     }
 }
@@ -66,10 +86,10 @@ void CreateNext(Person* person, int IsNextNext, ...) {
         if (person != NULL) {
             person->next = CreatePerson();
             if (person->next == NULL) {
-                puts("Error creating next person.");
+                puts(PERSON_ERROR_CREATE);
             }
         } else {
-            puts("Error creating person, received null pointer.");
+            puts(PERSON_ERROR_CREATE_NULL);
         }
     } else {
         va_list ap;
@@ -91,6 +111,7 @@ void CreateNext(Person* person, int IsNextNext, ...) {
  *                         null.
  *************************************************************************/
 Person* SelfDestruct(Person* person) {
+    Person* nextToPerson = person->next;
     free(person->name);
     for (int i = 0; i < person->numOfKids; ++i) {
         free(person->kids[i]);
@@ -102,21 +123,22 @@ Person* SelfDestruct(Person* person) {
     person->CreateNext = NULL;
     person->SelfDestruct = NULL;
     free(person);
-    return NULL;
+    return nextToPerson;
 }
 
 /**************************************************************************
  * Function name: KillNext
  * Input: Person pointer
  * Output: No output
- * The function operation: This function just calls
- *                         ConnectLeftAndRightOfPerson which takes two
- *                         pointers to person objects and deletes the
- *                         second one and connect the first and the one
- *                         that was after the second input person.
+ * The function operation: This function connects the person and the
+ *                         person after the victim and kills the victim.
  *************************************************************************/
 void KillNext(Person* person) {
-    ConnectLeftAndRightOfPerson(person,person->next);
+    if (person != NULL) {
+        Person *victim = person->next;
+        person->next = victim->next;
+        victim->SelfDestruct(victim);
+    }
 }
 
 /**************************************************************************
@@ -151,7 +173,7 @@ void InitPersonValues(Person* person) {
                 person->kids[i] = ReadInputString();
             }
         } else {
-            puts("Error Initializing values, error while allocating memory for kids");
+            puts(PERSON_ERROR_CREATE_KIDS);
             return;
         }
         person->Print = PrintPerson;
@@ -159,6 +181,6 @@ void InitPersonValues(Person* person) {
         person->KillNext = KillNext;
         person->SelfDestruct = SelfDestruct;
     } else {
-        puts("Error Initializing values, received pointer to NULL");
+        puts(PERSON_ERROR_RECEIVED_NULL);
     }
 }

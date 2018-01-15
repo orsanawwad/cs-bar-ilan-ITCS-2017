@@ -10,7 +10,21 @@
 #include "string.h"
 #include "stdlib.h"
 
+/**
+ * Constants
+ */
+
 #define BUFFER_SIZE 80
+
+#define PRINT_CIRCLE_LINES "----------"
+
+#define ERROR_CONNECTING_GOT_NULL "Error connecting left and right of person, received NULL as input."
+
+#define PERSON_SCOREBOARD_ACTION " kills "
+
+#define PERSON_SCOREBOARD_SUB_ACTION " and "
+
+#define PERSON_SCOREBOARD_ERROR_NULL "Error, received null"
 
 /**************************************************************************
  * Function name: PrintCircle
@@ -23,10 +37,10 @@
 void PrintCircle(Person* head) {
     Person* pHead = head;
     if (head != NULL) {
-        puts("----------");
+        puts(PRINT_CIRCLE_LINES);
         do {
             pHead->Print(pHead);
-            puts("----------");
+            puts(PRINT_CIRCLE_LINES);
             pHead = pHead->next;
         } while (head != pHead);
     }
@@ -43,7 +57,7 @@ void PrintCircle(Person* head) {
  *************************************************************************/
 char* ReadInputString() {
     char buffer[BUFFER_SIZE+1] = {'\0'};
-    scanf("\n%s",&buffer);
+    scanf("%s",&buffer);
     char* pText = NULL;
     pText = (char *)malloc((strlen(buffer) + 1));
     if (pText != NULL) {
@@ -160,7 +174,6 @@ Person* ConnectLeftAndRightOfPerson(Person* head, Person* personToRemove) {
             Person* nextToPersonToRemove = personToRemove->next;
             personToRemove->SelfDestruct(personToRemove);
             previousToThePersonToRemove->next = nextToPersonToRemove;
-            personToRemove = NULL;
             return head;
         } else {
             if (personToRemove->next != head) {
@@ -169,55 +182,41 @@ Person* ConnectLeftAndRightOfPerson(Person* head, Person* personToRemove) {
                 Person* nextToPersonToRemove = personToRemove->next;
                 personToRemove->SelfDestruct(personToRemove);
                 previousToThePersonToRemove->next = nextToPersonToRemove;
-                personToRemove = NULL;
                 return newHead;
             } else {
                 personToRemove->SelfDestruct(personToRemove);
-                personToRemove = NULL;
                 return NULL;
             }
         }
     } else {
-        puts("Error connecting left and right of person, received NULL as input.");
+        puts(ERROR_CONNECTING_GOT_NULL);
     }
     return NULL;
 }
 
 /**************************************************************************
- * Function name: BuildAndPrintKillStatement
+ * Function name: ScoreBoardPrint
  * Input: Person pointer killer, Person pointer victim
  * Output: No output
- * The function operation: The function calculates the amount of characters
- *                         that is going to get displayed in the text, adds
- *                         one for null character, then allocates the
- *                         correct amount of memory, then concatenates the
- *                         words to form the kill print text, then frees
- *                         the memory of that text after printing it.
+ * The function operation: Prints the who kills who by printing the name
+ *                         of the killer, then " kills " then the killer name
+ *                         then their children names, with " and " before
+ *                         each one.
  *************************************************************************/
-void BuildAndPrintKillStatement(Person* killer, Person* victim) {
-    char* killsKeyword = " kills ";
-    char* andKeyword = " and ";
+void ScoreBoardPrint(Person *killer, Person *victim) {
+    if (killer != NULL && victim != NULL) {
+        printf(killer->name);
+        printf(PERSON_SCOREBOARD_ACTION);
+        printf(victim->name);
 
-    int totalChildrenNameCount = 0;
-    for (int i = 0; i < victim->numOfKids; ++i) {
-        totalChildrenNameCount = totalChildrenNameCount + (int)strlen(victim->kids[i]);
+        for (int j = 0; j < victim->numOfKids; ++j) {
+            printf(PERSON_SCOREBOARD_SUB_ACTION);
+            printf(victim->kids[j]);
+        }
+        printf("\n");
+    } else {
+        puts(PERSON_SCOREBOARD_ERROR_NULL);
     }
-
-    int stringCount = (int)(strlen(killer->name) + strlen(killsKeyword) + strlen(victim->name));
-    stringCount += (int)(totalChildrenNameCount + strlen(andKeyword)*victim->numOfKids);
-
-    char* statement = (char *)calloc(stringCount + 1, sizeof(char));
-
-    strcat(statement,killer->name);
-    strcat(statement,killsKeyword);
-    strcat(statement,victim->name);
-    for (int i = 0; i < victim->numOfKids; ++i) {
-        strcat(statement,andKeyword);
-        strcat(statement,victim->kids[i]);
-    }
-    puts(statement);
-    strcpy(statement,"");
-    free(statement);
 }
 
 /**************************************************************************
