@@ -31,6 +31,14 @@
 
 #define PERSON_ERROR_RECEIVED_NULL "Error Initializing values, received pointer to NULL"
 
+#define ASK_PERSON_NAME "Name:"
+
+#define ASK_PERSON_ID "ID:"
+
+#define ASK_PERSON_NUM_OF_KIDS "Num of kids:"
+
+#define ASK_PERSON_KID_NUMBER_NAME "Kid #%d name:\n"
+
 /**************************************************************************
  * Function name: PrintPerson
  * Input: Person pointer to print it's details

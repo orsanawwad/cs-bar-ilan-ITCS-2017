@@ -8,14 +8,6 @@
 #ifndef PERSON_H
 #define PERSON_H
 
-#define ASK_PERSON_NAME "Name:"
-
-#define ASK_PERSON_ID "ID:"
-
-#define ASK_PERSON_NUM_OF_KIDS "Num of kids:"
-
-#define ASK_PERSON_KID_NUMBER_NAME "Kid #%d name:\n"
-
 //Person struct that holds the person information like name, id and kids...
 struct Person {
     char* name;
