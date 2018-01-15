@@ -61,6 +61,7 @@ Person* CreatePerson() {
         InitPersonValues(pPerson);
         return pPerson;
     } else {
+        //If Initializing the value failed, return NULL
         puts(PERSON_ERROR);
         return NULL;
     }
@@ -87,6 +88,7 @@ void CreateNext(Person* person, int IsNextNext, ...) {
             person->next = CreatePerson();
             if (person->next == NULL) {
                 puts(PERSON_ERROR_CREATE);
+                return;
             }
         } else {
             puts(PERSON_ERROR_CREATE_NULL);
@@ -96,7 +98,13 @@ void CreateNext(Person* person, int IsNextNext, ...) {
         va_start(ap,IsNextNext);
         Person* theLatter = va_arg(ap, Person*);
         va_end(ap);
-        person->next = CreatePerson();
+        Person* newPerson = CreatePerson();
+        if (newPerson == NULL) {
+            //If Creating a new person failed, exit the function
+            return;
+        } else {
+            person->next = newPerson;
+        }
         (person->next)->next = theLatter;
     }
 }
@@ -168,11 +176,24 @@ void InitPersonValues(Person* person) {
         }
         person->kids = (char **)calloc(person->numOfKids, sizeof(char *));
         if (person->kids != NULL) {
-            for (int i = 0; i < person->numOfKids; ++i) {
+            int i;
+            for (i = 0; i < person->numOfKids; ++i) {
                 printf("Kid #%d name:\n", i + 1);
                 person->kids[i] = ReadInputString();
+                if (person->kids[i] == NULL) {
+                    //If one of the children failed to get a name, free everything and exit function
+                    for (int j = i; j != 0; j--) {
+                        free(person->kids[j]);
+                    }
+                    free(person->kids);
+                    free(person->name);
+                    puts(PERSON_ERROR_RECEIVED_NULL);
+                    return;
+                }
             }
         } else {
+            //If allocating kids failed, free the name, since it couldve passed
+            free(person->name);
             puts(PERSON_ERROR_CREATE_KIDS);
             return;
         }
@@ -180,7 +201,9 @@ void InitPersonValues(Person* person) {
         person->CreateNext = CreateNext;
         person->KillNext = KillNext;
         person->SelfDestruct = SelfDestruct;
+
     } else {
         puts(PERSON_ERROR_RECEIVED_NULL);
+        return;
     }
 }

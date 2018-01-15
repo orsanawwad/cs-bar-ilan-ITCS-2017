@@ -36,8 +36,8 @@ Person* CreatePerson();
 
 /**************************************************************************
  * Function name: CreateNext
- * Input: Person pointerz, IsNextNext boolean, variadic list of Person struct
- *        pointers.
+ * Input: Person pointerz, IsNextNext boolean, variadic list of Person
+ *                         struct pointers.
  * Output: No output.
  * The function operation: If IsNextNext is false, it takes the current
  *                         person and creates new person in its next

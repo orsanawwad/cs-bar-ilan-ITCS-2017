@@ -32,6 +32,8 @@
 
 #define WIN_MESSAGE "Ah, ha, ha, ha, stayin' alive, stayin' alive! Ah, ha, ha, ha, \"%s\" stayin' alive!\n"
 
+#define ERROR_ALLOCATING "Error allocating memory"
+
 /**************************************************************************
  * Function name: InitTheHungerGame
  * Input: No input
@@ -55,10 +57,24 @@ Person* InitTheHungerGame() {
         if (ShouldAdd == 1) {
             if (pHead == NULL) {
                 pHead = CreatePerson();
-                followUpPerson = pHead;
+                if (pHead == NULL) {
+                    //If failed allocating for a new person the first time, exit function
+                    puts(ERROR_ALLOCATING);
+                    return NULL;
+                } else {
+                    followUpPerson = pHead;
+                }
             } else {
                 followUpPerson->CreateNext(followUpPerson,0);
-                followUpPerson = followUpPerson->next;
+                if (followUpPerson->next == NULL) {
+                    //If creating the next person failed, kill everyone else previously created (aka free them)
+                    while (pHead!=NULL) {
+                        pHead->SelfDestruct(pHead);
+                        pHead = pHead->next;
+                    }
+                } else {
+                    followUpPerson = followUpPerson->next;
+                }
             }
         } else {
             if (followUpPerson != NULL) {
@@ -183,5 +199,5 @@ void LetTheHungerGameBegin(Person* head) {
         pHead = pHead->next;
     }
     printf(WIN_MESSAGE, pHead->name);
-    pHead->next = pHead->SelfDestruct(pHead);
+    pHead->SelfDestruct(pHead);
 }

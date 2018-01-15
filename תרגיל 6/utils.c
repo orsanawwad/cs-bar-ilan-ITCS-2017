@@ -56,7 +56,7 @@ void PrintCircle(Person* head) {
  *                         allocated memory pointer, then returned.
  *************************************************************************/
 char* ReadInputString() {
-    char buffer[BUFFER_SIZE+1] = {'\0'};
+    char buffer[BUFFER_SIZE] = {'\0'};
     scanf("%s",&buffer);
     char* pText = NULL;
     pText = (char *)malloc((strlen(buffer) + 1));
