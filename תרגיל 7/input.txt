@@ -1,0 +1,8 @@
+bitAnd:2:6,5
+bitCount:1:-3
+bang:1:3
+fitsBits:2:8,3
+divpwr2:2:33,4
+negate:1:9
+isPositive:1:0
+isLessOrEqual:2:8,9

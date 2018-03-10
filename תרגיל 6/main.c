@@ -59,22 +59,35 @@ void f6() {
 
 //main function
 int main() {
-    int x;
-    scanf("%d", &x);
-    if (x == 1) {
-        f1();
-    } else if (x == 2) {
-        f2();
-    } else if (x == 3) {
-        f3();
-    } else if (x == 4 || x == 5) {
-        f45();
-    }  else if (x == 6) {
-        f6();
-    } else {
-        printf("error\n");
-    }
-    return 0;
+//    int x;
+//    scanf("%d", &x);
+//    if (x == 1) {
+//        f1();
+//    } else if (x == 2) {
+//        f2();
+//    } else if (x == 3) {
+//        f3();
+//    } else if (x == 4 || x == 5) {
+//        f45();
+//    }  else if (x == 6) {
+//        f6();
+//    } else {
+//        printf("error\n");
+//    }
+//    return 0;
+
+    //Person* heads[40];
+    head = InitTheHungerGame();
+    PrintCircle(head);
+    InsertLaters(head);
+    PrintCircle(head);
+    head = RemoveCowards(head);
+//    PrintCircle(head);
+//    head = SortCircleByName(head);
+    PrintCircle(head);
+    head = SortCircleByID(head);
+    PrintCircle(head);
+    LetTheHungerGameBegin(head);
 }
 
 
